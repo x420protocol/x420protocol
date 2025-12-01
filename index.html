@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>x420 Protocol - Optimized Micro-Payment Middleware</title>
+    <link rel="icon" type="image/jpg" href="assets/icon.jpg">
+    <meta name="description"
+        content="Express.js middleware for the x420 protocol - an optimized extension of x402 for internet-native micro-payments">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="assets/style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item brand-logo" href="#home">
+                    <span class="logo-text">x420</span>
+                </a>
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+            <div id="navbarMenu" class="navbar-menu">
+                <div class="navbar-end">
+                    <a class="navbar-item" href="#features">Features</a>
+                    <a class="navbar-item" href="#protocol">Protocol</a>
+                    <a class="navbar-item" href="#quickstart">Quick Start</a>
+                    <a class="navbar-item" href="#docs">Documentation</a>
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button is-primary is-rounded social-btn"
+                                href="https://github.com/x420protocol/x420protocol" target="_blank" rel="noopener">
+                                <span class="icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                        fill="currentColor">
+                                        <path
+                                            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                                    </svg>
+                                </span>
+                            </a>
+                            <a class="button is-primary is-rounded social-btn"
+                                href="https://www.npmjs.com/package/x420-middleware" target="_blank" rel="noopener">
+                                <span class="icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                        fill="currentColor">
+                                        <path
+                                            d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H3.999v4H1.335V8.667h5.331v5.331zm4 0v1.336H8.001V8.667h5.334v5.332h-2.669v-.001zm12.001 0h-1.33v-4h-1.336v4h-1.335v-4h-1.33v4h-2.671V8.667h8.002v5.331zM10.665 10H12v2.667h-1.335V10z" />
+                                    </svg>
+                                </span>
+                            </a>
+                            <a class="button is-primary is-rounded social-btn" href="https://x.com/x420Proto"
+                                target="_blank" rel="noopener">
+                                <span class="icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                        fill="currentColor">
+                                        <path
+                                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                                    </svg>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero is-fullheight-with-navbar hero-gradient" id="home">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-vcentered">
+                    <div class="column is-6" style="align-self: normal;">
+                        <div class="hero-left-content">
+                            <div class="hero-text-content">
+                                <h1 class="title is-1 has-text-weight-bold hero-title">
+                                    <span class="gradient-text">x420 Protocol</span>
+                                </h1>
+                                <h2 class="subtitle is-4 hero-subtitle">
+                                    Optimized micro-payment middleware for Express.js
+                                </h2>
+                                <p class="content is-size-5 mb-5">
+                                    Single-request payment authorization with cryptographic security.
+                                    Stateless, fast, and payment-provider agnostic.
+                                </p>
+                                <div class="buttons hero-buttons">
+                                    <a href="#quickstart" class="button is-primary is-large is-rounded">
+                                        <span class="icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                            </svg>
+                                        </span>
+                                        <span>Get Started</span>
+                                    </a>
+                                    <a href="https://github.com/x420protocol/x420protocol"
+                                        class="button is-outlined is-light is-large is-rounded" target="_blank">
+                                        <span class="icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 24 24" fill="currentColor">
+                                                <path
+                                                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                                            </svg>
+                                        </span>
+                                        <span>View on GitHub</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="install-command">
+                                <pre><code class="language-bash">npm install x420-middleware</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-6">
+                        <div class="hero-code-block">
+                            <pre><code class="language-typescript">import express from 'express';
+import { x420 } from 'x420-middleware';
+
+const app = express();
+
+app.use(x420({
+  paymentProvider: new MyProvider(),
+  priceMap: {
+    '/api/data': { 
+      price: '100', 
+      asset: 'USDC' 
+    }
+  }
+}));
+
+app.get('/api/data', (req, res) => {
+  res.json({ 
+    wallet: req.wallet,
+    data: 'premium content' 
+  });
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section features-section" id="features">
+        <div class="container">
+            <h2 class="title is-2 has-text-centered section-title">
+                <span class="gradient-text">Why x420?</span>
+            </h2>
+            <p class="subtitle is-5 has-text-centered mb-6">
+                Built for performance, security, and developer experience
+            </p>
+
+            <div class="columns is-multiline">
+                <div class="column is-4">
+                    <div class="card feature-card">
+                        <div class="card-content">
+                            <div class="feature-icon mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                                </svg>
+                            </div>
+                            <h3 class="title is-4">Single-Request Access</h3>
+                            <p class="content">
+                                Consolidates price discovery and payment authorization into one request.
+                                Minimal latency, maximum efficiency.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-4">
+                    <div class="card feature-card">
+                        <div class="card-content">
+                            <div class="feature-icon mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                            </div>
+                            <h3 class="title is-4">Cryptographically Secure</h3>
+                            <p class="content">
+                                Every access secured by unique, atomic, on-chain transactions.
+                                Stateless verification with signature-based authorization.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-4">
+                    <div class="card feature-card">
+                        <div class="card-content">
+                            <div class="feature-icon mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                            </div>
+                            <h3 class="title is-4">Price Mismatch Failsafe</h3>
+                            <p class="content">
+                                Automatic price validation prevents stale cache exploitation.
+                                402 responses trigger immediate price refresh.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-4">
+                    <div class="card feature-card">
+                        <div class="card-content">
+                            <div class="feature-icon mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="title is-4">Provider Agnostic</h3>
+                            <p class="content">
+                                Abstract PaymentProvider interface works with any blockchain,
+                                payment processor, or custom authorization scheme.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-4">
+                    <div class="card feature-card">
+                        <div class="card-content">
+                            <div class="feature-icon mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                    <polyline points="2 17 12 22 22 17"></polyline>
+                                    <polyline points="2 12 12 17 22 12"></polyline>
+                                </svg>
+                            </div>
+                            <h3 class="title is-4">Fully Stateless</h3>
+                            <p class="content">
+                                No server-side sessions or pre-paid tokens.
+                                Each request carries complete cryptographic proof.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-4">
+                    <div class="card feature-card">
+                        <div class="card-content">
+                            <div class="feature-icon mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="16 18 22 12 16 6"></polyline>
+                                    <polyline points="8 6 2 12 8 18"></polyline>
+                                </svg>
+                            </div>
+                            <h3 class="title is-4">TypeScript First</h3>
+                            <p class="content">
+                                Complete type definitions, IntelliSense support, and
+                                compile-time safety for your payment flows.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section protocol-section" id="protocol">
+        <div class="container">
+            <h2 class="title is-2 has-text-centered section-title mb-6">
+                <span class="gradient-text">How It Works</span>
+            </h2>
+
+            <div class="columns is-vcentered is-variable is-8 mb-6">
+                <div class="column is-6">
+                    <div class="card protocol-card protocol-card-full-height">
+                        <div class="card-content">
+                            <div class="protocol-phase">Phase 1</div>
+                            <h3 class="title is-3">Price Discovery</h3>
+                            <p class="content is-size-5 mb-4">
+                                Clients retrieve current prices for protected resources via a dedicated endpoint.
+                            </p>
+                            <div class="protocol-steps">
+                                <div class="step-item">
+                                    <span class="step-number">1</span>
+                                    <div class="step-content">
+                                        <strong>Proactive Discovery</strong>
+                                        <p>Client requests <code>/x420-prices</code> and caches the response locally</p>
+                                    </div>
+                                </div>
+                                <div class="step-item">
+                                    <span class="step-number">2</span>
+                                    <div class="step-content">
+                                        <strong>Reactive Discovery</strong>
+                                        <p>On 402 response, client invalidates cache and refreshes prices</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-6">
+                    <div class="code-example">
+                        <pre><code class="language-bash">GET /x420-prices HTTP/1.1</code></pre>
+                        <pre><code class="language-typescript">{
+  "prices": [
+    {
+      "path": "/api/premium-data",
+      "price": "100",
+      "asset": "USDC"
+    },
+    {
+      "path": "/api/exclusive",
+      "price": "50",
+      "asset": "USDC"
+    }
+  ]
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="columns is-vcentered is-variable is-8">
+                <div class="column is-6">
+                    <div class="code-example">
+                        <pre><code class="language-bash">GET /api/premium-data HTTP/1.1
+X-Payment: {
+  "amount": "100",
+  "asset": "USDC",
+  "signature": "0x...",
+  "wallet": "0x..."
+}</code></pre>
+                        <pre><code class="language-typescript">HTTP/1.1 200 OK
+
+{
+  "data": "premium content",
+  "wallet": "0x..."
+}</code></pre>
+                    </div>
+                </div>
+                <div class="column is-6">
+                    <div class="card protocol-card protocol-card-full-height">
+                        <div class="card-content">
+                            <div class="protocol-phase">Phase 2</div>
+                            <h3 class="title is-3">Single-Request Access</h3>
+                            <p class="content is-size-5 mb-4">
+                                Client sends payment authorization in a single request to access protected resources.
+                            </p>
+                            <div class="protocol-steps">
+                                <div class="step-item">
+                                    <span class="step-number">1</span>
+                                    <div class="step-content">
+                                        <strong>Signature Verification</strong>
+                                        <p>Server validates cryptographic signature</p>
+                                    </div>
+                                </div>
+                                <div class="step-item">
+                                    <span class="step-number">2</span>
+                                    <div class="step-content">
+                                        <strong>Price Matching</strong>
+                                        <p>Exact price and asset validation</p>
+                                    </div>
+                                </div>
+                                <div class="step-item">
+                                    <span class="step-number">3</span>
+                                    <div class="step-content">
+                                        <strong>Settlement & Access</strong>
+                                        <p>Payment settled, resource delivered</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section quickstart-section" id="quickstart">
+        <div class="container">
+            <h2 class="title is-2 has-text-centered section-title mb-6">
+                <span class="gradient-text">Quick Start</span>
+            </h2>
+
+            <div class="card quickstart-card">
+                <div class="card-content">
+                    <h3 class="title is-4 mb-4">Installation</h3>
+                    <pre><code class="language-bash">npm install x420-middleware</code></pre>
+
+                    <h3 class="title is-4 mt-5 mb-4">Implement Payment Provider</h3>
+                    <pre><code class="language-typescript">import { PaymentProvider, PaymentAuthorization, PaymentVerificationResult } from 'x420-middleware';
+
+class MyPaymentProvider implements PaymentProvider {
+  async verifyPayment(auth: PaymentAuthorization): Promise<PaymentVerificationResult> {
+    const isValid = await this.verifySignature(auth.signature, auth.wallet);
+    
+    if (!isValid) {
+      return { valid: false, error: 'Invalid signature' };
+    }
+    
+    return {
+      valid: true,
+      wallet: auth.wallet,
+      amount: auth.amount,
+      asset: auth.asset
+    };
+  }
+
+  async settlePayment(auth: PaymentAuthorization): Promise<void> {
+    await this.submitToBlockchain(auth);
+  }
+
+  private async verifySignature(signature: string, wallet: string): Promise<boolean> {
+    return true;
+  }
+
+  private async submitToBlockchain(auth: PaymentAuthorization): Promise<void> {
+    console.log('Settling payment:', auth);
+  }
+}</code></pre>
+
+                    <h3 class="title is-4 mt-5 mb-4">Configure Middleware</h3>
+                    <pre><code class="language-typescript">import express from 'express';
+import { x420 } from 'x420-middleware';
+
+const app = express();
+
+const middleware = x420({
+  paymentProvider: new MyPaymentProvider(),
+  priceMap: {
+    '/api/premium-data': { price: '100', asset: 'USDC' },
+    '/api/exclusive-content': { price: '50', asset: 'USDC' }
+  },
+  priceDiscoveryPath: '/x420-prices',
+  paymentHeader: 'x-payment'
+});
+
+app.use(middleware);
+
+app.get('/api/premium-data', (req, res) => {
+  res.json({ 
+    wallet: req.wallet,
+    data: 'This is premium content' 
+  });
+});
+
+app.listen(3000, () => {
+  console.log('Server running on port 3000');
+});</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section docs-section" id="docs">
+        <div class="container">
+            <h2 class="title is-2 has-text-centered section-title mb-6">
+                <span class="gradient-text">Documentation</span>
+            </h2>
+
+            <div class="columns is-multiline">
+                <div class="column is-4">
+                    <div class="card docs-card">
+                        <div class="card-content has-text-centered">
+                            <div class="docs-icon mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                    <polyline points="10 9 9 9 8 9"></polyline>
+                                </svg>
+                            </div>
+                            <h3 class="title is-4">Protocol Specification</h3>
+                            <p class="content">
+                                Complete technical specification of the x420 protocol
+                            </p>
+                            <a href="x420-protocol.md" class="button is-primary is-outlined is-rounded" target="_blank">
+                                Read Spec
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-4">
+                    <div class="card docs-card">
+                        <div class="card-content has-text-centered">
+                            <div class="docs-icon mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="title is-4">API Documentation</h3>
+                            <p class="content">
+                                Comprehensive API reference and usage examples
+                            </p>
+                            <a href="README.md" class="button is-primary is-outlined is-rounded" target="_blank">
+                                View Docs
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-4">
+                    <div class="card docs-card">
+                        <div class="card-content has-text-centered">
+                            <div class="docs-icon mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                                </svg>
+                            </div>
+                            <h3 class="title is-4">GitHub Repository</h3>
+                            <p class="content">
+                                Source code, issues, and contribution guidelines
+                            </p>
+                            <a href="https://github.com/x420protocol/x420protocol"
+                                class="button is-primary is-outlined is-rounded" target="_blank">
+                                View on GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-4">
+                    <h3 class="title is-5 gradient-text">x420 Protocol</h3>
+                    <p class="content">
+                        Optimized micro-payment middleware for the modern web.
+                        Built on x402 standards.
+                    </p>
+                </div>
+                <div class="column is-4">
+                    <h3 class="title is-6">Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="x420-protocol.md">Protocol Specification</a></li>
+                        <li><a href="README.md">Documentation</a></li>
+                        <li><a href="https://github.com/x420protocol/x420protocol">GitHub</a></li>
+                        <li><a href="https://www.npmjs.com/package/x420-middleware">NPM Package</a></li>
+                    </ul>
+                </div>
+                <div class="column is-4">
+                    <h3 class="title is-6">Connect</h3>
+                    <div class="footer-social">
+                        <a href="https://github.com/x420protocol/x420protocol" target="_blank" rel="noopener"
+                            class="footer-social-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="currentColor">
+                                <path
+                                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.npmjs.com/package/x420-middleware" target="_blank" rel="noopener"
+                            class="footer-social-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="currentColor">
+                                <path
+                                    d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H3.999v4H1.335V8.667h5.331v5.331zm4 0v1.336H8.001V8.667h5.334v5.332h-2.669v-.001zm12.001 0h-1.33v-4h-1.336v4h-1.335v-4h-1.33v4h-2.671V8.667h8.002v5.331zM10.665 10H12v2.667h-1.335V10z" />
+                            </svg>
+                        </a>
+                        <a href="https://x.com/x420Proto" target="_blank" rel="noopener" class="footer-social-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                                fill="currentColor">
+                                <path
+                                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="has-text-centered mt-5 footer-bottom">
+                <p>Built with ❤️ for the decentralized web</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/script.js"></script>
+</body>
+
+</html>

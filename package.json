@@ -1,0 +1,40 @@
+{
+  "name": "x420-middleware",
+  "version": "1.0.0",
+  "description": "Express.js middleware for the x420 protocol - an optimized extension of x402 for internet-native micro-payments",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "x420",
+    "x402",
+    "payment",
+    "middleware",
+    "express",
+    "crypto",
+    "micropayment"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.3"
+  },
+  "peerDependencies": {
+    "express": "^4.18.0"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "x420-protocol.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": ""
+  }
+}
