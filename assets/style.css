@@ -170,6 +170,8 @@ body {
 
 .hero-buttons {
     gap: 1rem;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
 }
 
 .hero-buttons .button {
@@ -218,6 +220,7 @@ body {
     height: 100%;
     display: flex;
     align-items: center;
+    margin-top: 1rem;
 }
 
 .hero-code-block:hover {
@@ -441,6 +444,24 @@ body {
     height: 100%;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+.docs-card .card-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.docs-card .content {
+    flex: 1;
+}
+
+.docs-card .button {
+    width: fit-content;
+    min-width: 150px;
+    align-self: center;
 }
 
 .docs-card:hover {
@@ -467,6 +488,10 @@ body {
 .docs-card .content {
     color: rgba(204, 219, 220, 0.8);
     margin-bottom: 1.5rem;
+}
+
+.docs-card .card-content {
+    color: var(--color-text);
 }
 
 .footer {
